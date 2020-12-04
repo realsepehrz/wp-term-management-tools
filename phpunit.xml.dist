@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<phpunit
+	bootstrap="tests/bootstrap.php"
+	backupGlobals="false"
+	colors="true"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+    stopOnFailure="false"
+	>
+	<testsuites>
+		<testsuite name="Unit">
+			<directory prefix="test-" suffix=".php">./tests/</directory>
+            <exclude>./tests/Unit/classes/test-WPML.php</exclude>
+		</testsuite>
+        <testsuite name="WPML">
+            <file>./tests/Unit/classes/test-WPML.php</file>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">classes</directory>
+            <directory suffix=".php">inc</directory>
+        </whitelist>
+    </filter>
+    <logging>
+        <log type="coverage-html" target="tests/reports" lowUpperBound="35" highLowerBound="80" showUncoveredFiles="false"/>
+    </logging>
+</phpunit>
