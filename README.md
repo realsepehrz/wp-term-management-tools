@@ -3,7 +3,7 @@ Contributors: theMikeD, scribu
 Tags: admin, category, tag, term, taxonomy, hierarchy, organize, manage, merge, change, parent, child  
 Requires at least: 4.2  
 Tested up to: 5.6  
-Stable tag: 2.0.0  
+Stable tag: 2.0.1  
 License: GPLv2 or later  
 Requires PHP: 7.1  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -69,6 +69,9 @@ Initial version of this plugin was by [scribu](http://scribu.net/), with contrib
 3. Change Taxonomy option. Here, the "Parent One EN" category will be sent to the custom taxonomy "Hierarchical" (which I added for the sake of testing). A few other things to note here. First, the two child terms will also be moved and, because the target taxonomy is also hierarchical the parent-child relationships will be preserved. Second, if there are any WPML translations of these terms, they will also be moved and the translations maintained.
 
 ## Changelog 
+
+### 2.0.1
+* FIX: a WPML translation that only exists in a single site non-primary language was not being migrated correctly
 
 ### 2.0.0
 * under new management by @theMikeD :)

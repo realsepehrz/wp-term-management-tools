@@ -196,7 +196,7 @@ class WPML extends Base {
 		$terms_to_relink       = explode( ',', $term_ids );
 		foreach ( $terms_to_relink as $term_to_relink ) {
 			$translation_record = $this->get_translation_record( (int) $term_to_relink );
-			if ( isset( $translation_record->source_language_code ) ) {
+			if ( isset( $translation_record ) ) {
 				// We have a translation
 				$set_translation_args = array(
 					'element_id'           => $translation_record->element_id,
