@@ -2,6 +2,12 @@
 
 namespace CNMD\TMT;
 
+// CHANGED
+// If this file is called directly, abort.
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly.
+}
+
 /**
  * Class Handlers
  *
@@ -40,8 +46,9 @@ class Handlers extends Base {
 	 * @return bool
 	 */
 	private function merge_terms( array $terms_manually_selected, string $taxonomy ) : bool {
-		$term_name = $_REQUEST['bulk_to_tag'];
-
+		// CHANGED
+		// $term_name = $_REQUEST['bulk_to_tag'];
+		$term_name = sanitize_text_field( $_REQUEST['bulk_to_tag'] );
 		$term = term_exists( $term_name, $taxonomy );
 		if ( ! $term ) {
 			$term = wp_insert_term( $term_name, $taxonomy );
@@ -121,7 +128,9 @@ class Handlers extends Base {
 	 *
 	 */
 	private function set_parent_term( array $terms_manually_selected, string $taxonomy ) : bool {
-		$parent_id = (int) $_REQUEST['parent'];
+		// CHANGED
+		// $parent_id = (int) $_REQUEST['parent'];
+		$parent_id = absint( $_REQUEST['parent'] );
 		if ( ! term_exists( $parent_id, $taxonomy ) ) {
 			return false;
 		}
@@ -155,7 +164,9 @@ class Handlers extends Base {
 	private function change_taxonomy( array $terms_manually_selected, string $taxonomy_from ) : bool {
 		global $wpdb;
 
-		$taxonomy_to = $_POST['new_tax'];
+		// CHANGED
+		// $taxonomy_to = $_POST['new_tax'];
+		$taxonomy_to = sanitize_text_field( $_POST['new_tax'] );
 
 		if ( ! taxonomy_exists( $taxonomy_to ) ) {
 			//@codeCoverageIgnoreStart
