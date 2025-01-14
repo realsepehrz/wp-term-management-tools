@@ -1,12 +1,19 @@
 
 ### Term Management Tools ###
 Contributors: theMikeD, scribu, realsepehrz
+
 Tags: admin, category, tag, term, taxonomy, hierarchy, organize, manage, merge, change, parent, child
+
 Requires at least: 4.2
+
 Tested up to: 6.7.1
+
 Stable tag: 2.0.2
+
 License: GPLv2 or later
+
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
+
 Requires PHP: 7.1
 
 Allows you to merge terms, move terms between taxonomies, and set term parents, individually or in bulk. WPML is supported when changing taxonomies.
@@ -122,3 +129,4 @@ Initial version of this plugin was by [scribu](http://scribu.net/), with contrib
 # 1.0 #
 * Initial release.
 * [More info](http://scribu.net/wordpress/term-management-tools/tmt-1-0.html).
+
