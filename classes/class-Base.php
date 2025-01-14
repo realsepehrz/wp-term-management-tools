@@ -2,6 +2,11 @@
 
 namespace CNMD\TMT;
 
+// CHANGED
+// If this file is called directly, abort.
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly.
+}
 abstract class Base {
 
 	/**
@@ -79,10 +84,10 @@ abstract class Base {
 			// end of the line
 			return array( (int) $term_id );
 		} else {
-			$terms_found = array_merge( $terms_found, $term_hierarchy[ $term_id ] );
+			$terms_found = array_merge( $terms_found, array_map( 'intval', $term_hierarchy[ $term_id ] ) );
 			foreach ( $term_hierarchy[ $term_id ] as $child_term_id ) {
-				$this->get_all_child_terms_for__recursive( (int) $child_term_id, $taxonomy_from, $term_hierarchy );
-			}
+				$terms_found = array_merge( $terms_found, $this->get_all_child_terms_for__recursive( (int) $child_term_id, $taxonomy_from, $term_hierarchy ) );
+			}			
 			$terms_found[] = $term_id;
 		}
 		return $terms_found;
@@ -125,19 +130,29 @@ abstract class Base {
 	 *
 	 * @return string|null
 	 */
+	// CHANGED
+	// protected function build_sql_placeholder( array $term_ids ) : ?string {
+	// 	if ( empty( $term_ids ) ) {
+	// 		return null;
+	// 	}
+	// 	$placeholder = '';
+	// 	$limit       = count( $term_ids );
+	// 	for ( $i = 0; $i < $limit; $i++ ) {
+	// 		if ( $placeholder ) {
+	// 			$placeholder .= ',';
+	// 		}
+	// 		$placeholder .= '%d';
+	// 	}
+	// 	return $placeholder;
+	// }
 	protected function build_sql_placeholder( array $term_ids ) : ?string {
 		if ( empty( $term_ids ) ) {
 			return null;
 		}
-		$placeholder = '';
-		$limit       = count( $term_ids );
-		for ( $i = 0; $i < $limit; $i++ ) {
-			if ( $placeholder ) {
-				$placeholder .= ',';
-			}
-			$placeholder .= '%d';
-		}
+		$term_ids = array_map( 'intval', $term_ids ); // Sanitizing term IDs
+		$placeholder = implode( ',', array_fill( 0, count( $term_ids ), '%d' ) );
 		return $placeholder;
 	}
+	
 
 }
