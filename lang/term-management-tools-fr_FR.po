@@ -1,4 +1,4 @@
-# Copyright (C) 2010 
+# Copyright (C) 2010
 # This file is distributed under the same license as the  package.
 msgid ""
 msgstr ""
@@ -8,37 +8,46 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2014-11-08 20:15-0500\n"
+"PO-Revision-Date: 2025-01-14 21:26+0000\n"
 "Last-Translator: Matthieu Durocher <matthieu@technocyclope.com>\n"
-"Language-Team: Technocyclope <matthieu@technocyclope.com>\n"
-"X-Generator: Poedit 1.5.6\n"
+"Language-Team: French (France)\n"
+"X-Generator: Loco https://localise.biz/\n"
 "Language: fr_FR\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-
-#: term-management-tools.php:40
-msgid "Merge"
-msgstr "Fusionner"
+"Plural-Forms: nplurals=2; plural=n > 1;"
 
 #: term-management-tools.php:41
 msgid "Change taxonomy"
 msgstr "Changer la taxonomie"
 
+#: term-management-tools.php:215
+msgid "into: %s"
+msgstr "dans : %s"
+
+#: term-management-tools.php:40
+msgid "Merge"
+msgstr "Fusionner"
+
+#: term-management-tools.php:242
+msgid "None"
+msgstr "Aucun"
+
+#: class-TermManagementTools.php:205
+msgid ""
+"Please refresh the page if a new term is added, as bulk actions cannot be "
+"performed on them."
+msgstr ""
+"Veuillez actualiser la page si un nouveau terme est ajouté, car les actions "
+"en masse ne peuvent pas être effectuées sur eux."
+
 #: term-management-tools.php:46
 msgid "Set parent"
 msgstr "Assigner le parent"
-
-#: term-management-tools.php:100
-msgid "Terms updated."
-msgstr "Termes mis à jour."
 
 #: term-management-tools.php:103
 msgid "Terms not updated."
 msgstr "Termes inchangés."
 
-#: term-management-tools.php:215
-msgid "into: %s"
-msgstr "dans : %s"
-
-#: term-management-tools.php:242
-msgid "None"
-msgstr "Aucun"
+#: term-management-tools.php:100
+msgid "Terms updated."
+msgstr "Termes mis à jour."
