@@ -1,5 +1,7 @@
 {
   "name": "cnmd/term-management-tools",
+  "description": "A set of tools for managing terms in a WordPress environment.",
+  "license": "GPL-2.0-or-later",
   "config": {
     "platform": {
       "php": "7.1"
