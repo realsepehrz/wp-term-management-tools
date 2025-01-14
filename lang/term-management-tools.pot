@@ -39,3 +39,7 @@ msgstr ""
 #: term-management-tools.php:242
 msgid "None"
 msgstr ""
+
+#: class-TermManagementTools.php:205
+msgid "Please refresh the page if a new term is added, as bulk actions cannot be performed on them."
+msgstr ""
