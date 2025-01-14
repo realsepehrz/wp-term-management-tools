@@ -13,6 +13,7 @@ Allows you to merge terms, move terms between taxonomies, and set term parents, 
 ## Description 
 
 _Please note this plugin requires at least PHP 7.1._
+realsepehrz note : I utilized AI models such as Copilot and Deepseek to assist in reviewing and writing code. Please use the provided code at your own discretion, as I cannot be held responsible for any consequences arising from its use.
 
 If you need to reorganize your tags and categories, this plugin will make it easier for you. It adds three new options to the Bulk Actions dropdown on term management pages:
 
