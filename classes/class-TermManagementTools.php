@@ -2,6 +2,11 @@
 
 namespace CNMD\TMT;
 
+// CHANGED
+// If this file is called directly, abort.
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly.
+}
 /**
  * Class TermManagementTools
  *
@@ -42,6 +47,7 @@ class TermManagementTools extends Base {
 		}
 		$this->handler = new Handlers();
 		$this->html    = new HTML();
+		// CHANGED 
 	}
 
 
@@ -56,7 +62,23 @@ class TermManagementTools extends Base {
 		$this->set_hooks();
 		load_plugin_textdomain( 'term-management-tools', false, CNMD_TMT_PLUGIN_URL_RELATIVE . '/lang' );
 	}
-
+	// CHANGED 
+	public function add_refresh_text() {
+		?>
+		<script>
+			jQuery(document).ready(function($) {
+				// Check if the refresh text span already exists
+				if ($('.rfrsh-txt').length === 0) {
+					$('.alignleft.actions.bulkactions').after(
+						'<span style="height:100%; display:inline-flex; align-items:center;" class="rfrsh-txt">' +
+						'<?php echo esc_js(__('Please refresh the page if a new term is added, as bulk actions cannot be performed on them.', 'term-management-tools')); ?>' +
+						'</span>'
+					);
+				}
+			});
+		</script>
+		<?php
+	}
 
 	/**
 	 * Set up global hooks (actions and filters)
@@ -111,16 +133,28 @@ class TermManagementTools extends Base {
 		}
 
 		$success = null;
+		// CHANGED
+		// foreach ( array_keys( $this->get_actions( $data['taxonomy'] ) ) as $key ) {
+		// 	if ( 'bulk_' . $key === $action ) {
+		// 		// Bail if nonce is invalid.
+		// 		check_admin_referer( 'bulk-tags' );
+
+		// 		$success = $this->handler->do( $key, $data['taxonomy'], $data['delete_tags'] );
+		// 		break;
+		// 	}
+		// }
 		foreach ( array_keys( $this->get_actions( $data['taxonomy'] ) ) as $key ) {
 			if ( 'bulk_' . $key === $action ) {
 				// Bail if nonce is invalid.
-				check_admin_referer( 'bulk-tags' );
-
+				if ( ! check_admin_referer( 'bulk-tags' ) ) {
+					wp_die( __( 'Nonce verification failed', 'term-management-tools' ) );
+				}
+		
 				$success = $this->handler->do( $key, $data['taxonomy'], $data['delete_tags'] );
 				break;
 			}
 		}
-
+		
 		// If we didn't do anything, this will still be null.
 		if ( null === $success ) {
 			return;
@@ -173,12 +207,23 @@ class TermManagementTools extends Base {
 	 *
 	 * @codeCoverageIgnore
 	 */
-	public function enqueue_assets() {
-		global $taxonomy;
-		$js_dev = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? 'src/' : '';
-		wp_enqueue_script( 'term-management-tools', CNMD_TMT_URL . 'assets/' . $js_dev . 'script.js', array( 'jquery' ), '2.0.0', true );
-		wp_localize_script( 'term-management-tools', 'tmtL10n', $this->get_actions( $taxonomy ) );
-	}
 
+	 public function enqueue_assets() {
+		global $taxonomy;
+		$js_dev = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? 'src/' : '';
+		wp_enqueue_script('term-management-tools', CNMD_TMT_URL . 'assets/' . $js_dev . 'script.js', array('jquery'), '2.0.0', true);
+	
+		// Get the actions and escape them
+		$actions = array_map('esc_html', $this->get_actions($taxonomy));
+	
+		// Add the refresh text as a separate key
+		$localized_data = array(
+			'actions' => $actions, // Actions array (for bulk actions)
+			'refreshText' => esc_html__('Please refresh the page if a new term is added, as bulk actions cannot be performed on them.', 'term-management-tools'), // Standalone refresh text
+		);
+	
+		// Localize the combined data
+		wp_localize_script('term-management-tools', 'tmtL10n', $localized_data);
+	}
 }
 
